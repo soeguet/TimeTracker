@@ -20,7 +20,6 @@ public class HomeService {
     private final Duration thirtyMinutesBreakNeeded = Duration.ofMinutes(385);
     //if someone works for 6+ hours -> 30 Minutes break needed. Overtime buffer of 25 Minutes added -> 540 + 25
     private final Duration fortyfiveMinutesBreakNeeded = Duration.ofMinutes(565);
-    private final LocalDate startingDate = LocalDate.of(2023, 4, 27);
     private final EmployeeRepository employeeRepository;
     private final StampTimeRepository stampTimeRepository;
 
@@ -187,12 +186,6 @@ public class HomeService {
         return Duration.between(stampTime.getTime(), workFinish);
     }
 
-    public List<StampTimeOverviewEmployeeDTO> getAllStampTimesOfEmployee(UUID employeeId) {
-        List<StampTime> listOfStampTimes = stampTimeRepository.findAllByEmployeeId(employeeId);
-        return listOfStampTimes.stream()
-                .map(time -> new StampTimeOverviewEmployeeDTO(time.getId(), time.getEmployeeId(), time.getDate()
-                        .toString(), time.getTime().toString(), "start")).toList();
-    }
 
     public String getNameOfEmployee(UUID employeeId) {
         return employeeRepository.getReferenceById(employeeId).getFirstname();
@@ -298,35 +291,6 @@ public class HomeService {
         }
 
         return stampTimesByDate;
-    }
-
-
-    //create service which returns a HashMap<LocalDate, List<StampTime>> for a given employee
-    public HashMap<LocalDate, List<StampTime>> getStampTimesOfEmployee3(UUID employeeId) {
-        List<StampTime> stampTimes = stampTimeRepository.findAllByEmployeeId(employeeId);
-        HashMap<LocalDate, List<StampTime>> stampTimesByDate = new HashMap<>();
-
-        for (StampTime stampTime : stampTimes) {
-            if (stampTimesByDate.containsKey(stampTime.getDate())) {
-                stampTimesByDate.get(stampTime.getDate()).add(stampTime);
-            } else {
-                List<StampTime> newStampTimeList = new ArrayList<>();
-                newStampTimeList.add(stampTime);
-                stampTimesByDate.put(stampTime.getDate(), newStampTimeList);
-            }
-        }
-
-        //sort reversed stampTimesByDate
-        //also sort the list of stampTimes by time
-        for (Map.Entry<LocalDate, List<StampTime>> entry : stampTimesByDate.entrySet()) {
-            entry.setValue(entry.getValue().stream()
-                    .sorted(Comparator.comparing(StampTime::getTime))
-                    .collect(Collectors.toList()));
-        }
-
-        return stampTimesByDate.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
     public UUID getEmployeeIdByName(String employeeName) {

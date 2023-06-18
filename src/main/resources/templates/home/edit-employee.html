@@ -37,9 +37,9 @@
         Update Employee Details
     </p>
     <form method="post"
-            th:action="@{/edit-employee/{id}(id=${employee.id})}"
-            th:object="${employee}">
-            <input type="hidden" th:field="*{id}" />
+          th:action="@{/edit-employee/{id}(id=${employee.id})}"
+          th:object="${employee}">
+        <input type="hidden" th:field="*{id}"/>
         <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-3">

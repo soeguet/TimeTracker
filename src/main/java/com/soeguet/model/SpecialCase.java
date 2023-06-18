@@ -14,12 +14,12 @@ import lombok.*;
 @ToString
 public class SpecialCase {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private UUID employeeId;
-    @Enumerated
-    private Case cause;
-    private LocalDate date;
-    private Duration timeValue;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
+  private UUID employeeId;
+  @Enumerated private Case cause;
+  private LocalDate date;
+  private Duration timeValue;
 }

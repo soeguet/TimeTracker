@@ -18,11 +18,12 @@ import lombok.*;
 @AllArgsConstructor
 public class Employee {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String firstname;
-    private Duration workingHours;
-    private LocalDate startOfEmployment;
-    private LocalDate startOfTimeTracking;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
+  private String firstname;
+  private Duration workingHours;
+  private LocalDate startOfEmployment;
+  private LocalDate startOfTimeTracking;
 }

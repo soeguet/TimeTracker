@@ -19,11 +19,12 @@ import lombok.*;
 @AllArgsConstructor
 public class StampTime {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private UUID employeeId;
-    private LocalDate date;
-    private LocalTime time;
-    private Duration targetWorkTime;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
+  private UUID employeeId;
+  private LocalDate date;
+  private LocalTime time;
+  private Duration targetWorkTime;
 }

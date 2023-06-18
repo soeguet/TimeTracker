@@ -1,5 +1,9 @@
 package com.soeguet.model.enums;
 
 public enum Case {
-    KRANK,URLAUB,FREI,NOTDIENST,KIND_KRANK
+  SICK,
+  HOLIDAY,
+  DAY_OFF,
+  EMERGENCY_SERVICE,
+  CHILDREN_SICK,
 }

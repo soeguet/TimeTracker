@@ -6,5 +6,5 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StampTimeRepository extends JpaRepository<StampTime, UUID> {
-    List<StampTime> findAllByEmployeeId(UUID employeeId);
+  List<StampTime> findAllByEmployeeId(UUID employeeId);
 }

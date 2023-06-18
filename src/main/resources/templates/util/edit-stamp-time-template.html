@@ -1,0 +1,46 @@
+<!-- Fragment -->
+<div th:fragment="edit-time">
+        <form class="mt-4"
+                th:action="@{/edit-stamp-time/{id}(id=${stampTime.id})}"
+                th:object="${stampTime}"
+                method="post">
+            <div class="row mb-3">
+                <label for="inputName" class="col-sm-2 col-form-label">Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="inputName" th:field="*{date}"
+                           th:value="${stampTime} ? ${stampTime.date} : 'null-name'">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputHPW" class="col-sm-2 col-form-label">StampTime</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputHPW" th:field="*{time}"
+                           th:value="${stampTime} ? ${stampTime.time} : 'null-hoursPweek'">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+</div>
+
+<div th:fragment="edit-time-overview">
+        <form class="mt-4"
+                th:action="@{/edit-stamp-time-overview/{id}(id=${stampTime.id})}"
+                th:object="${stampTime}"
+                method="post">
+            <div class="row mb-3">
+                <label for="inputName" class="col-sm-2 col-form-label">Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="inputName" th:field="*{date}"
+                           th:value="${stampTime} ? ${stampTime.date} : 'null-name'">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputHPW" class="col-sm-2 col-form-label">StampTime</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputHPW" th:field="*{time}"
+                           th:value="${stampTime} ? ${stampTime.time} : 'null-hoursPweek'">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+</div>

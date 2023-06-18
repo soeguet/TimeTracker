@@ -32,42 +32,49 @@ public class TimeTrackerApplication implements CommandLineRunner {
         employee1.setFirstname("Alex");
         employee1.setWorkingHours(Duration.ofHours(40));
         employee1.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee1.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee1);
 
         Employee employee2 = new Employee();
         employee2.setFirstname("Berta");
         employee2.setWorkingHours(Duration.ofHours(35));
         employee2.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee2.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee2);
 
         Employee employee3 = new Employee();
         employee3.setFirstname("Cecilia");
         employee3.setWorkingHours(Duration.ofHours(35));
         employee3.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee3.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee3);
 
         Employee employee4 = new Employee();
         employee4.setFirstname("Damian");
         employee4.setWorkingHours(Duration.ofHours(40));
         employee4.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee4.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee4);
 
         Employee employee5 = new Employee();
         employee5.setFirstname("Emil");
         employee5.setWorkingHours(Duration.ofHours(40));
         employee5.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee5.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee5);
 
         Employee employee6 = new Employee();
         employee6.setFirstname("Franziska");
         employee6.setWorkingHours(Duration.ofHours(30));
         employee6.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee6.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee6);
 
         Employee employee7 = new Employee();
         employee7.setFirstname("Gustaf");
         employee7.setWorkingHours(Duration.ofHours(10));
         employee7.setStartOfEmployment(LocalDate.of(2020, 1, 1));
+        employee7.setStartOfTimeTracking(LocalDate.now().minusDays(7));
         homeService.saveEmployee(employee7);
 
         Employee emp1 = homeService.getEmployeeByFirstname(employee1.getFirstname());

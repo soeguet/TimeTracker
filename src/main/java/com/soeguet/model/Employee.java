@@ -24,4 +24,5 @@ public class Employee {
     private String firstname;
     private Duration workingHours;
     private LocalDate startOfEmployment;
+    private LocalDate startOfTimeTracking;
 }

@@ -120,14 +120,14 @@ public class HomeService {
 
     private Duration fetchInitialDurationByEmployee(Employee employee) {
 
-        int workingDaysSinceStartOfRecording = getWorkingDaysSinceStartOfRecording(LocalDate.now());
+        int workingDaysSinceStartOfRecording = getWorkingDaysSinceStartOfRecording(LocalDate.now(),employee.getStartOfTimeTracking());
 
         return employee.getWorkingHours().dividedBy(5).multipliedBy(workingDaysSinceStartOfRecording).negated();
     }
 
-    private int getWorkingDaysSinceStartOfRecording(LocalDate today) {
+    private int getWorkingDaysSinceStartOfRecording(LocalDate today, LocalDate startOfEmployment) {
         int workDays = 0;
-        LocalDate date = startingDate;
+        LocalDate date = startOfEmployment;
 
         while (date.isBefore(today) || date.isEqual(today)) {
             DayOfWeek dayOfWeek = date.getDayOfWeek();

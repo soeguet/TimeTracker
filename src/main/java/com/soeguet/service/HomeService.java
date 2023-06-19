@@ -296,6 +296,7 @@ public class HomeService {
     newStampTime.setDate(LocalDate.parse(stampTime.date()));
     newStampTime.setTime(LocalTime.parse(stampTime.time()));
     newStampTime.setEmployeeId(employee.getId());
+    newStampTime.setWorkingHoursPerWeek(employee.getWorkingHours());
     stampTimeRepository.save(newStampTime);
   }
 

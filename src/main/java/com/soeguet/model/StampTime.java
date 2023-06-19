@@ -26,5 +26,5 @@ public class StampTime {
   private UUID employeeId;
   private LocalDate date;
   private LocalTime time;
-  private Duration targetWorkTime;
+  private Duration workingHoursPerWeek;
 }

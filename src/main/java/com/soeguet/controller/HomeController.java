@@ -56,7 +56,6 @@ public class HomeController {
   // Post Method for editing Employee with id
   @PostMapping("/edit-employee/{id}")
   public String editEmployee(@PathVariable("id") UUID employeeUuid, EditEmployeeDTO employee) {
-    System.out.println("employee = " + employee);
     homeService.editEmployee(employeeUuid, employee);
     return "redirect:/";
   }
@@ -176,7 +175,7 @@ public class HomeController {
   // add employee without id
   @GetMapping("/add-employee")
   public String addEmployee(Model model) {
-    model.addAttribute("employee", new EditEmployeeDTO(null, null, null, null));
+    model.addAttribute("employee", new EditEmployeeDTO(null, null, null, null, null));
     return "add/add-employee";
   }
 

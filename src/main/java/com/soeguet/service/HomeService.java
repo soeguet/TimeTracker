@@ -212,7 +212,8 @@ public class HomeService {
         employee.getId(),
         employee.getFirstname(),
         getTimeAsString(employee.getWorkingHours()),
-        employee.getStartOfEmployment().toString());
+        employee.getStartOfEmployment().toString(),
+            employee.getStartOfTimeTracking().toString());
   }
 
   public StampTimeDTO getStampTimeById(UUID stampTimeId) {
@@ -240,6 +241,7 @@ public class HomeService {
     employeeToEdit.setFirstname(employee.name());
     employeeToEdit.setWorkingHours(
         Duration.parse("PT" + employee.hoursPerWeek().replace(":", "H") + "M"));
+    employeeToEdit.setStartOfTimeTracking(LocalDate.parse(employee.startOfTimeTracking()));
     employeeRepository.save(employeeToEdit);
   }
 

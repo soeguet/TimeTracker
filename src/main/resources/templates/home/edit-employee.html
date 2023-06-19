@@ -61,6 +61,13 @@
                        th:value="${employee} ? ${employee.startOfEmployment} : 'null-startOfEmployment'">
             </div>
         </div>
+        <div class="row mb-3">
+            <label for="startOfTimeTracking" class="col-sm-2 col-form-label">Start of Employment</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" id="startOfTimeTracking" th:field="*{startOfTimeTracking}"
+                       th:value="${employee} ? ${employee.startOfTimeTracking} : 'null-startOfTimeTracking'">
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

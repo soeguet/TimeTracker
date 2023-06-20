@@ -74,6 +74,14 @@
             <div class="h5 d-flex justify-content-end">
                 <div>--> <span th:text="${day.workTime}"></span></div>
             </div>
+            <div class="h5 d-flex justify-content-end">
+                <div>StampTimes: <span th:text="${#lists.size(day.stampTimeList)}"></span></div>
+            </div>
+            TODO: Break needed check!
+            <div th:if="${day.workTime == '06:35'}" class="h5 d-flex justify-content-end">
+                <div>Break necessary</div>
+            </div>
+
         </div>
     </div>
 </div>

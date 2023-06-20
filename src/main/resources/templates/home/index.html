@@ -32,6 +32,7 @@
         <tr>
             <th>Name</th>
             <th>Start of Employment</th>
+            <th>Start of TimeTracking</th>
             <th>Hours per Week</th>
             <th>Overtime</th>
             <th>Status</th>
@@ -42,6 +43,7 @@
         <tr th:each="employee : ${allEmployees}">
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.startOfEmployment}"></td>
+            <td th:text="${employee.startOfTimeTracking}"></td>
             <td th:text="${employee.hoursPerWeek}"></td>
             <td th:text="${employee.overTime}"></td>
             <td th:text="${employee.workingStatus}"></td>

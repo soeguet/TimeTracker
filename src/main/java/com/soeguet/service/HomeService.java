@@ -65,6 +65,7 @@ public class HomeService {
                     String.valueOf(employee.getId()),
                     employee.getFirstname(),
                     employee.getStartOfEmployment().toString(),
+                    employee.getStartOfTimeTracking().toString(),
                     hoursPerWeekAsString,
                     overTimeAsString,
                     "logged out");
@@ -111,6 +112,7 @@ public class HomeService {
                   String.valueOf(employee.getId()),
                   employee.getFirstname(),
                   employee.getStartOfEmployment().toString(),
+                    employee.getStartOfTimeTracking().toString(),
                   hoursPerWeekAsString,
                   overTimeAsString,
                   workingStatus);

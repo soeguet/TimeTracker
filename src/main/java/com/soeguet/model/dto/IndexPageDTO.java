@@ -4,6 +4,7 @@ public record IndexPageDTO(
     String id,
     String name,
     String startOfEmployment,
+    String startOfTimeTracking,
     String hoursPerWeek,
     String overTime,
     String workingStatus) {}

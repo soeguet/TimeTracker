@@ -71,6 +71,13 @@ public class HomeController {
     return "home/employee-stamptimes";
   }
 
+  @GetMapping("/stamp-time/test/{id}")
+  public String showEmployeeWorkTestTimes(
+          @PathVariable("id") UUID employeeId, Model model, HttpServletRequest request) {
+    previousPageReferer(model, request);
+    model.addAttribute("employeeOverview",homeService.getTestEmployeeOverview(employeeId));
+    return "playground/employee-stamptimes-test";
+  }
   @GetMapping("/edit-stamp-time/{id}")
   public String editStampTime(
       @PathVariable("id") UUID stampTimeId, Model model, HttpServletRequest request) {

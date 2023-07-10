@@ -357,18 +357,21 @@ public class HomeService {
           List<WorkdayEntry> workdayEntryList = new ArrayList<>();
           stampTimeList.stream()
               .filter(stampTime -> stampTime.getDate().isEqual(date))
-              .forEach(
-                  workday ->
-                      workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
-          Workday workday =
-              new Workday(date.toString(), null, null, null, null, null, workdayEntryList);
+              .forEach(workday -> workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
+          Workday workday = new Workday(date.toString(), determinWorkTime(workdayEntryList), null, null, null, null, workdayEntryList);
           workdayList.add(workday);
         });
 
     return new EmployeeOverviewDTO(
-      employeeId,
-      employeeRepository.findById(employeeId).orElseThrow().getFirstname(),
-      workdayList
-    );
+        employeeId,
+        employeeRepository.findById(employeeId).orElseThrow().getFirstname(),
+        workdayList);
+  }
+
+  private Duration determinWorkTime(List<WorkdayEntry> workdayEntryList) {
+
+
+
+    return null;
   }
 }

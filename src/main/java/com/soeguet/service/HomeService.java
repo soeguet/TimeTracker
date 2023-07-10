@@ -358,7 +358,7 @@ public class HomeService {
           stampTimeList.stream()
               .filter(stampTime -> stampTime.getDate().isEqual(date))
               .forEach(workday -> workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
-          Workday workday = new Workday(date.toString(), determinWorkTime(workdayEntryList), null, null, null, null, workdayEntryList);
+          Workday workday = new Workday(date.toString(), calculateWorkTime(workdayEntryList), null, null, null, null, workdayEntryList);
           workdayList.add(workday);
         });
 
@@ -368,10 +368,22 @@ public class HomeService {
         workdayList);
   }
 
-  private Duration determinWorkTime(List<WorkdayEntry> workdayEntryList) {
+  private Duration calculateWorkTime(List<WorkdayEntry> workdayEntryList) {
 
+    if (workdayEntryList.size() < 2){
+      return Duration.ofMinutes(0);
+    }
 
+    // skip the last entry if odd number of stamp times
+    int rounds = workdayEntryList.size() / 2;
 
-    return null;
+    Duration worktime = Duration.ofMinutes(0);
+
+    for(int i = 1; i <= rounds; i++) {
+      Duration delta = Duration.between(workdayEntryList.get((i * 2) - 2).workTime(),workdayEntryList.get((i * 2) - 1).workTime());
+      worktime = worktime.plus(delta);
+    }
+
+    return worktime;
   }
 }

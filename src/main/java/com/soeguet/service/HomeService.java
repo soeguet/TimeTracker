@@ -194,8 +194,7 @@ public class HomeService {
     }
   }
 
-  // if someone forgets to stamp out -> automatically enter the shift end as stamp
-  // time
+  // if someone forgets to stamp out -> automatically enter the shift end as stamp time
   private Duration checkIfSingleStampTimeIsBeforeOrAfter1830(StampTime stampTime) {
 
     LocalTime workFinish;
@@ -357,8 +356,19 @@ public class HomeService {
           List<WorkdayEntry> workdayEntryList = new ArrayList<>();
           stampTimeList.stream()
               .filter(stampTime -> stampTime.getDate().isEqual(date))
-              .forEach(workday -> workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
-          Workday workday = new Workday(date.toString(), calculateWorkTime(workdayEntryList), null, null, null, null, workdayEntryList);
+              .forEach(
+                  workday ->
+                      workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
+          Duration grossWorkTime = calculateWorkTime(workdayEntryList);
+          Workday workday =
+              new Workday(
+                  date.toString(),
+                  grossWorkTime,
+                  calculateBreakTime(workdayEntryList, grossWorkTime),
+                  null,
+                  null,
+                  null,
+                  workdayEntryList);
           workdayList.add(workday);
         });
 
@@ -368,9 +378,65 @@ public class HomeService {
         workdayList);
   }
 
+  private Duration calculateBreakTime(List<WorkdayEntry> workdayEntryList, Duration grossWorkTime) {
+
+    /*
+    possible outcomes:
+
+    - 2 stamptimes
+        - less than 6 hours                     -> 0 mins break
+        - more than 6 hours, less than 9 hours  -> 30 mins break needed
+        - more than 9 hours                     -> 45 mins break needed
+
+    - even number of stamptimes                 -> calculate breaks
+
+    - odd number of stamptimes                  -> last one ignored (find out via modulo maybe?)
+        - if 3, see above
+        - if 5 or more custom logic
+
+    - 6 hours = 360 mins
+    - 9 hours = 540 mins
+     */
+
+    // if worktime does not exceed 6:15 (375 minutes) in one day and no breaks registered (stamptime
+    // < 4)
+    if (grossWorkTime.getSeconds() / 60 < 375 && workdayEntryList.size() < 4) {
+      return Duration.ofMinutes(0);
+    }
+
+    if (workdayEntryList.size() < 4) {
+
+      // now we check if worktime exceeds 9 hours (540 minutes) -> 45 minutes break needed, else 30
+      // minutes!
+      if (grossWorkTime.getSeconds() / 60 < 540) {
+        return Duration.ofMinutes(30);
+      } else {
+        return Duration.ofMinutes(45);
+      }
+    }
+
+    // need to substract 2 because of shift begin and shift end
+    int rounds = (workdayEntryList.size()-2) / 2;
+
+    Duration breaktime = Duration.ofMinutes(0);
+
+    // i needs to be 1, since 0 is the initial stamp time (e.g. in the morning). the second stamp
+    // time is for the break, the third for break end. the fourth is normally for the end of the
+    // shift. if a second break is taken, the fourth and fifth will be the second break, while the
+    // sixth is the end of the shift
+    for (int i = 0; i < rounds; i+=2) {
+      Duration delta =
+          Duration.between(
+              workdayEntryList.get(i + 1).workTime(),
+              workdayEntryList.get(i + 2).workTime());
+      breaktime = breaktime.plus(delta);
+    }
+    return breaktime;
+  }
+
   private Duration calculateWorkTime(List<WorkdayEntry> workdayEntryList) {
 
-    if (workdayEntryList.size() < 2){
+    if (workdayEntryList.size() < 2) {
       return Duration.ofMinutes(0);
     }
 
@@ -379,8 +445,11 @@ public class HomeService {
 
     Duration worktime = Duration.ofMinutes(0);
 
-    for(int i = 1; i <= rounds; i++) {
-      Duration delta = Duration.between(workdayEntryList.get((i * 2) - 2).workTime(),workdayEntryList.get((i * 2) - 1).workTime());
+    for (int i = 1; i <= rounds; i++) {
+      Duration delta =
+          Duration.between(
+              workdayEntryList.get((i * 2) - 2).workTime(),
+              workdayEntryList.get((i * 2) - 1).workTime());
       worktime = worktime.plus(delta);
     }
 

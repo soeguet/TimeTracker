@@ -7,6 +7,8 @@ import java.util.List;
 public class WorkDay {
   private final List<StampTime> stampTimeList;
   private String workTime;
+  private Duration workTimeDuration;
+  private Duration delta;
 
   public WorkDay() {
     stampTimeList = new ArrayList<>();

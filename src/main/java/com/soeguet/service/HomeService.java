@@ -155,11 +155,13 @@ public class HomeService {
     int workDays = 0;
     LocalDate date = startOfEmployment;
 
-    if (date == null) {
+    assert date != null;
+    if (date.isAfter(LocalDate.now())) {
       return 0;
     }
 
     while (date.isBefore(today) || date.isEqual(today)) {
+
       DayOfWeek dayOfWeek = date.getDayOfWeek();
 
       if (dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY) {

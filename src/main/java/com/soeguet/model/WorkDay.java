@@ -6,7 +6,6 @@ import java.util.List;
 
 public class WorkDay {
   private final List<StampTime> stampTimeList;
-  private String workTime;
   private Duration workTimeDuration;
   private Duration delta;
 
@@ -39,10 +38,28 @@ public class WorkDay {
 
   public void addStampTime(StampTime stampTime) {
     stampTimeList.add(stampTime);
-    workTime = getWorkTime();
+    getWorkTime();
   }
 
   public List<StampTime> getStampTimeList() {
     return stampTimeList;
+  }
+
+  public void setWorkTime(String workTime) {}
+
+  public Duration getWorkTimeDuration() {
+    return this.workTimeDuration;
+  }
+
+  public void setWorkTimeDuration(Duration workTimeDuration) {
+    this.workTimeDuration = workTimeDuration;
+  }
+
+  public Duration getDelta() {
+    return this.delta;
+  }
+
+  public void setDelta(Duration delta) {
+    this.delta = delta;
   }
 }

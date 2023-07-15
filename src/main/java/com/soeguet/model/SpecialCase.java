@@ -5,13 +5,8 @@ import jakarta.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.UUID;
-import lombok.*;
 
 @Entity
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 public class SpecialCase {
 
   @Id
@@ -22,4 +17,14 @@ public class SpecialCase {
   @Enumerated private Case cause;
   private LocalDate date;
   private Duration timeValue;
+
+  public SpecialCase() {
+  }
+
+  public SpecialCase(UUID employeeId, Case cause, LocalDate date, Duration timeValue) {
+    this.employeeId = employeeId;
+    this.cause = cause;
+    this.date = date;
+    this.timeValue = timeValue;
+  }
 }

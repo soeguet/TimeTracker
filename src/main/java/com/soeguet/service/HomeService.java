@@ -347,6 +347,7 @@ public class HomeService {
 
   public EmployeeOverviewDTO getTestEmployeeOverview(UUID employeeId) {
     List<StampTime> stampTimeList = stampTimeRepository.findAllByEmployeeId(employeeId);
+    Employee employee = employeeRepository.getReferenceById(employeeId);
 
     List<Workday> workdayList = new ArrayList<>();
 
@@ -362,14 +363,18 @@ public class HomeService {
                   workday ->
                       workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
           Duration grossWorkTime = calculateWorkTime(workdayEntryList);
+          Duration breakTime = calculateBreakTime(workdayEntryList, grossWorkTime);
+          Duration targetTime = employee.getWorkingHours().dividedBy(5);
+          Duration netWorktime = grossWorkTime.minus(breakTime);
+          Duration overtime = netWorktime.minus(targetTime);
           Workday workday =
               new Workday(
                   date.toString(),
                   grossWorkTime,
-                  calculateBreakTime(workdayEntryList, grossWorkTime),
-                  null,
-                  null,
-                  null,
+                  breakTime,
+                  netWorktime,
+                  overtime,
+                  targetTime,
                   workdayEntryList);
           workdayList.add(workday);
         });
@@ -418,7 +423,7 @@ public class HomeService {
     }
 
     // need to substract 2 because of shift begin and shift end
-    int rounds = (workdayEntryList.size()-2) / 2;
+    int rounds = (workdayEntryList.size() - 2) / 2;
 
     Duration breaktime = Duration.ofMinutes(0);
 
@@ -426,11 +431,10 @@ public class HomeService {
     // time is for the break, the third for break end. the fourth is normally for the end of the
     // shift. if a second break is taken, the fourth and fifth will be the second break, while the
     // sixth is the end of the shift
-    for (int i = 0; i < rounds; i+=2) {
+    for (int i = 0; i < rounds; i += 2) {
       Duration delta =
           Duration.between(
-              workdayEntryList.get(i + 1).workTime(),
-              workdayEntryList.get(i + 2).workTime());
+              workdayEntryList.get(i + 1).workTime(), workdayEntryList.get(i + 2).workTime());
       breaktime = breaktime.plus(delta);
     }
     return breaktime;

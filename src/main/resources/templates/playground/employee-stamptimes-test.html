@@ -68,7 +68,11 @@
                                     <td th:text="(${index.count %2 != 0} ? 'log in' : 'log out')"></td>
                                     <td th:text="${time.workTime()}"></td>
                                     <td>
-                                        <button class="btn btn-warning btn-sm" disabled>edit</button>
+                                        <a th:href="@{/edit-stamp-time/{id}(id=${time.uuid()})}">
+                                            <button class="btn btn-warning btn-sm">
+                                                edit
+                                            </button>
+                                        </a>
                                     </td>
                                 </tr>
                             </table>

@@ -362,14 +362,17 @@ public class HomeService {
               .forEach(
                   workday ->
                       workdayEntryList.add(new WorkdayEntry(workday.getId(), workday.getTime())));
+
           Duration grossWorkTime = calculateWorkTime(workdayEntryList);
           Duration breakTime = calculateBreakTime(workdayEntryList, grossWorkTime);
           Duration targetTime = employee.getWorkingHours().dividedBy(5);
           Duration netWorktime = grossWorkTime.minus(breakTime);
           Duration overtime = netWorktime.minus(targetTime);
+
           Workday workday =
               new Workday(
                   date.toString(),
+                  (workdayEntryList.size() % 2 != 0),
                   grossWorkTime,
                   breakTime,
                   netWorktime,

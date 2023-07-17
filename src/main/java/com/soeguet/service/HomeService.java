@@ -371,7 +371,7 @@ public class HomeService {
 
           Workday workday =
               new Workday(
-                  date.toString(),
+                  date,
                   (workdayEntryList.size() % 2 != 0),
                   grossWorkTime,
                   breakTime,

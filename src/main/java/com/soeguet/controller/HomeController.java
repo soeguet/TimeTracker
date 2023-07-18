@@ -62,23 +62,24 @@ public class HomeController {
   }
 
   // @Homepage
+//  @GetMapping("/stamp-time/{id}")
+//  public String showEmployeeWorkTimes(
+//      @PathVariable("id") UUID employeeId, Model model, HttpServletRequest request) {
+//    previousPageReferer(model, request);
+//    model.addAttribute("employeeName", homeService.getNameOfEmployee(employeeId));
+//    model.addAttribute("employeeId", employeeId);
+//    model.addAttribute("allStampTimes", homeService.getStampTimesOfEmployee(employeeId));
+//    return "home/employee-stamptimes";
+//  }
+
   @GetMapping("/stamp-time/{id}")
   public String showEmployeeWorkTimes(
-      @PathVariable("id") UUID employeeId, Model model, HttpServletRequest request) {
-    previousPageReferer(model, request);
-    model.addAttribute("employeeName", homeService.getNameOfEmployee(employeeId));
-    model.addAttribute("employeeId", employeeId);
-    model.addAttribute("allStampTimes", homeService.getStampTimesOfEmployee(employeeId));
-    return "home/employee-stamptimes";
-  }
-
-  @GetMapping("/stamp-time/test/{id}")
-  public String showEmployeeWorkTestTimes(
           @PathVariable("id") UUID employeeId, Model model, HttpServletRequest request) {
     previousPageReferer(model, request);
+    //noinspection InstantiationOfUtilityClass
     model.addAttribute("dateUtils", new DateUtils());
     model.addAttribute("employeeOverview",homeService.getTestEmployeeOverview(employeeId));
-    return "playground/employee-stamptimes-test";
+    return "home/employee-stamptimes";
   }
   @GetMapping("/edit-stamp-time/{id}")
   public String editStampTime(

@@ -24,8 +24,12 @@
     <div th:each="work : ${employeeOverview.workdayList()}" class="card p-4 m-3">
         <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
-                <h3 th:text="${work.date()}"></h3>
-                <span th:if="${work.isWorking()}" class="badge text-bg-danger">logged in</span>
+                <h3 th:text="${work.date()}"
+                    th:classappend="${dateUtils.isFuture(work.date())} ? 'text-danger' : ''"></h3>
+                <div>
+                    <span th:if="${dateUtils.isFuture(work.date())}" class="badge text-bg-danger">future</span>
+                    <span th:if="${work.isWorking()}" class="badge text-bg-danger">logged in</span>
+                </div>
             </div>
 
             <h5 th:text="${work.date().dayOfWeek.name()}"></h5>

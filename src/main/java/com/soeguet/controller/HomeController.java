@@ -2,6 +2,7 @@ package com.soeguet.controller;
 
 import com.soeguet.model.dto.*;
 import com.soeguet.service.HomeService;
+import com.soeguet.util.DateUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -75,6 +76,7 @@ public class HomeController {
   public String showEmployeeWorkTestTimes(
           @PathVariable("id") UUID employeeId, Model model, HttpServletRequest request) {
     previousPageReferer(model, request);
+    model.addAttribute("dateUtils", new DateUtils());
     model.addAttribute("employeeOverview",homeService.getTestEmployeeOverview(employeeId));
     return "playground/employee-stamptimes-test";
   }

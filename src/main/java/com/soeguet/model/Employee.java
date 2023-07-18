@@ -7,8 +7,10 @@ import jakarta.persistence.Id;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.Objects;
 
 @Entity
+
 public class Employee {
 
   @Id
@@ -23,7 +25,8 @@ public class Employee {
   public Employee() {
   }
 
-  public Employee(String firstname, Duration workingHours, LocalDate startOfEmployment, LocalDate startOfTimeTracking) {
+  public Employee(UUID id, String firstname, Duration workingHours, LocalDate startOfEmployment, LocalDate startOfTimeTracking) {
+    this.id = id;
     this.firstname = firstname;
     this.workingHours = workingHours;
     this.startOfEmployment = startOfEmployment;
@@ -31,11 +34,15 @@ public class Employee {
   }
 
   public UUID getId() {
-    return id;
+    return this.id;
+  }
+
+  public void setId(UUID id) {
+    this.id = id;
   }
 
   public String getFirstname() {
-    return firstname;
+    return this.firstname;
   }
 
   public void setFirstname(String firstname) {
@@ -43,7 +50,7 @@ public class Employee {
   }
 
   public Duration getWorkingHours() {
-    return workingHours;
+    return this.workingHours;
   }
 
   public void setWorkingHours(Duration workingHours) {
@@ -51,7 +58,7 @@ public class Employee {
   }
 
   public LocalDate getStartOfEmployment() {
-    return startOfEmployment;
+    return this.startOfEmployment;
   }
 
   public void setStartOfEmployment(LocalDate startOfEmployment) {
@@ -59,10 +66,63 @@ public class Employee {
   }
 
   public LocalDate getStartOfTimeTracking() {
-    return startOfTimeTracking;
+    return this.startOfTimeTracking;
   }
 
   public void setStartOfTimeTracking(LocalDate startOfTimeTracking) {
     this.startOfTimeTracking = startOfTimeTracking;
   }
+
+  public Employee id(UUID id) {
+    setId(id);
+    return this;
+  }
+
+  public Employee firstname(String firstname) {
+    setFirstname(firstname);
+    return this;
+  }
+
+  public Employee workingHours(Duration workingHours) {
+    setWorkingHours(workingHours);
+    return this;
+  }
+
+  public Employee startOfEmployment(LocalDate startOfEmployment) {
+    setStartOfEmployment(startOfEmployment);
+    return this;
+  }
+
+  public Employee startOfTimeTracking(LocalDate startOfTimeTracking) {
+    setStartOfTimeTracking(startOfTimeTracking);
+    return this;
+  }
+
+  @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Employee)) {
+            return false;
+        }
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) && Objects.equals(firstname, employee.firstname) && Objects.equals(workingHours, employee.workingHours) && Objects.equals(startOfEmployment, employee.startOfEmployment) && Objects.equals(startOfTimeTracking, employee.startOfTimeTracking);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, firstname, workingHours, startOfEmployment, startOfTimeTracking);
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+      " id='" + getId() + "'" +
+      ", firstname='" + getFirstname() + "'" +
+      ", workingHours='" + getWorkingHours() + "'" +
+      ", startOfEmployment='" + getStartOfEmployment() + "'" +
+      ", startOfTimeTracking='" + getStartOfTimeTracking() + "'" +
+      "}";
+  }
+  
 }

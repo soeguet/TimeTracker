@@ -382,10 +382,11 @@ public class HomeService {
           workdayList.add(workday);
         });
 
+    // sort workday list before adding it to the DTO
     return new EmployeeOverviewDTO(
         employeeId,
         employeeRepository.findById(employeeId).orElseThrow().getFirstname(),
-        workdayList);
+        workdayList.stream().sorted(Comparator.comparing(Workday::date)).toList());
   }
 
   private Duration calculateBreakTime(List<WorkdayEntry> workdayEntryList, Duration grossWorkTime) {

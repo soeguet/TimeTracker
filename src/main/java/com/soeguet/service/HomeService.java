@@ -352,6 +352,7 @@ public class HomeService {
     List<Workday> workdayList = new ArrayList<>();
 
     Set<LocalDate> dateSet = new HashSet<>();
+
     stampTimeList.forEach(stampTime -> dateSet.add(stampTime.getDate()));
 
     dateSet.forEach(
@@ -369,6 +370,7 @@ public class HomeService {
           Duration netWorktime = grossWorkTime.minus(breakTime);
           Duration overtime = netWorktime.minus(targetTime);
 
+          // sort stamp times chronologically
           Workday workday =
               new Workday(
                   date,
@@ -378,7 +380,9 @@ public class HomeService {
                   netWorktime,
                   overtime,
                   targetTime,
-                  workdayEntryList);
+                  workdayEntryList.stream()
+                      .sorted(Comparator.comparing(WorkdayEntry::workTime))
+                      .toList());
           workdayList.add(workday);
         });
 
@@ -386,7 +390,7 @@ public class HomeService {
     return new EmployeeOverviewDTO(
         employeeId,
         employeeRepository.findById(employeeId).orElseThrow().getFirstname(),
-        workdayList.stream().sorted(Comparator.comparing(Workday::date)).toList());
+        workdayList.stream().sorted(Comparator.comparing(Workday::date).reversed()).toList());
   }
 
   private Duration calculateBreakTime(List<WorkdayEntry> workdayEntryList, Duration grossWorkTime) {

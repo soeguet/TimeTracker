@@ -38,23 +38,24 @@
             <table class="table">
                 <tr>
                     <td>work time total:</td>
-                    <td th:text="${work.worktimeTotal()}"></td>
+<!--                     <td th:text="${work.worktimeTotal()}"></td> -->
+                    <td th:text="${dateUtils.convertDurationToString(work.worktimeTotal())}"></td>
                 </tr>
                 <tr>
                     <td>break time:</td>
-                    <td th:text="${work.breakTime()}"></td>
+                    <td th:text="${dateUtils.convertDurationToString(work.breakTime())}"></td>
                 </tr>
                 <tr>
                     <td>net work time:</td>
-                    <td th:text="${work.netWorktime()}"></td>
+                    <td th:text="${dateUtils.convertDurationToString(work.netWorktime())}"></td>
                 </tr>
                 <tr>
                     <td>target time:</td>
-                    <td th:text="${work.targetTime()}"></td>
+                    <td th:text="${dateUtils.convertDurationToString(work.targetTime())}"></td>
                 </tr>
                 <tr>
                     <td>overtime:</td>
-                    <td th:text="${work.overtime()}"></td>
+                    <td th:text="${dateUtils.convertDurationToString(work.overtime())}"></td>
                 </tr>
             </table>
         </div>

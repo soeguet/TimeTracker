@@ -10,9 +10,11 @@
     <title>StampTimes</title>
 </head>
 
+<div th:replace="~{util/navbar :: nav}"></div>
+
 <body>
 <div class="container">
-    <p th:text="${employeeOverview.uuid()}"></p>
+    <h1 class="my-3">Overview StampTime</h1>
     <div class="d-flex justify-content-between">
         <h2 th:text="${employeeOverview.name()}"></h2>
         <a th:href="@{/add-stamptime-employee/{id}(id=${employeeOverview.uuid()})}">
